@@ -8,9 +8,12 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      users: [],
+      username: '',
+      email: '',
     }
     this.addUser = this.addUser.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   getUsers() {
@@ -24,6 +27,12 @@ class App extends Component {
     console.log('sanity check!');
   }
 
+  handleChange(event) {
+    const obj = {};
+    obj[event.target.name] = event.target.value;
+    this.setState(obj);
+  }
+
   componentDidMount() {
     this.getUsers();
   }
@@ -35,7 +44,12 @@ class App extends Component {
           <div className="col-md-4">
             <br/>
             <h1>All Users</h1>
-            <AddUser addUser={this.addUser} />
+            <AddUser
+              username={this.state.username}
+              email={this.state.email}
+              handleChange={this.handleChange}
+              addUser={this.addUser}
+            />
             <hr/><br/>
             <UsersList users={this.state.users} />
           </div>
