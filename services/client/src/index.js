@@ -10,12 +10,18 @@ class App extends Component {
     this.state = {
       users: []
     }
+    this.addUser = this.addUser.bind(this);
   }
 
   getUsers() {
     axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
     .then((res) => { this.setState({ users: res.data.data.users }); })
     .catch((err) => { console.log(err); });
+  }
+
+  addUser(event) {
+    event.preventDefault();
+    console.log('sanity check!');
   }
 
   componentDidMount() {
@@ -29,7 +35,7 @@ class App extends Component {
           <div className="col-md-4">
             <br/>
             <h1>All Users</h1>
-            <AddUser />
+            <AddUser addUser={this.addUser} />
             <hr/><br/>
             <UsersList users={this.state.users} />
           </div>
