@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    environment:
+      - DOCKER_COMPOSE_VERSION: 1.21.1
+    steps:
+      - checkout
+      - run:
+          command: echo "Hello world"
