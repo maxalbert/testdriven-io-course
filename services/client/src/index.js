@@ -1,19 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
-const App = () => {
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4">
-          <br/>
-          <h1>All Users</h1>
-          <hr/><br/>
+class App extends Component {
+  constructor() {
+    super();
+  }
+
+  getUsers() {
+    axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
+    .then((res) => { console.log(res.data.data.users); })
+    .catch((err) => { console.log(err); });
+  }
+
+  componentDidMount() {
+    this.getUsers();
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4">
+            <br/>
+            <h1>All Users</h1>
+            <hr/><br/>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
+};
 
 ReactDOM.render(
   <App />,
