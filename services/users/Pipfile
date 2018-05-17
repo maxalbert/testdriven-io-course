@@ -10,6 +10,7 @@ flask-sqlalchemy = "*"
 flask-testing = "*"
 gunicorn = "*"
 coverage = "*"
+"flake8" = "*"
 
 [dev-packages]
 
