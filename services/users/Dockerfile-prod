@@ -1,8 +1,8 @@
 FROM python:3.6.4
 
 # install environment dependencies
-RUN apt-get update -yqq \
-  && apt-get install -yqq --no-install-recommends \
+RUN apt-get update -y \
+  && apt-get install -y --no-install-recommends \
     netcat \
   && apt-get -q clean
 
