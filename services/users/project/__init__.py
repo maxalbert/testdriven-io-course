@@ -23,7 +23,7 @@ class User(db.Model):
         self.email = email
 
 
-@app.route('/users/ping/', methods=['GET'])
+@app.route('/users/ping', methods=['GET'])
 def ping_pong():
     return jsonify({
         'status': 'success',
