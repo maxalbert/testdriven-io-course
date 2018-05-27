@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    environment:
+      - DOCKER_COMPOSE_VERSION: 1.21.1
+      - REACT_APP_USERS_SERVICE_URL: http://127.0.0.1
+    steps:
+      - checkout
+      - run:
+          name: Install recent version of docker-compose
+          command: sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+      - run:
+          name: Spin up containers
+          command: docker-compose -f docker-compose-dev.yml up --build -d
+      - run:
+          name: Run tests
+          command: docker-compose -f docker-compose-dev.yml run users pipenv run python manage.py test
+      - run:
+          name: Run linter
+          command: docker-compose -f docker-compose-dev.yml run users pipenv run flake8 project
+      - run:
+          name: Spin down containers
+          command: docker-compose -f docker-compose-dev.yml down
