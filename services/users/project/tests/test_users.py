@@ -5,7 +5,9 @@ from project.tests.base import BaseTestCase
 
 
 class TestUserService(BaseTestCase):
-    """Tests for the Users Service."""
+    """
+    Tests for the Users Service.
+    """
 
     def test_users(self):
         """
