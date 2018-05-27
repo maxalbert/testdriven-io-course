@@ -1,11 +1,26 @@
 FROM python:3.6.4
 
+# install environment dependencies
+RUN apt-get update -yqq \
+  && apt-get install -yqq --no-install-recommends \
+    netcat \
+  && apt-get -q clean
+
+# set working directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
+# add requirements
 COPY ./Pipfile* /usr/src/app/
+
+# install requirements
 RUN pip install pipenv && pipenv install
 
+# add entrypoint.sh
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+
+# add app
 COPY . /usr/src/app
 
-CMD pipenv run python manage.py run -h 0.0.0.0
+# run server
+CMD ["./entrypoint.sh"]
